@@ -15,6 +15,7 @@ local LrLogger = import 'LrLogger' -- Import functions for logging and debugging
 -- [X] ToDo : Add Deprecated Calls check
 -- [X] ToDo : Available only when PhotosSelected
 -- [X] ToDo : Add Clear Settings Button
+-- [ ] ToDo : Disable/Enable and resolve settings
 -- Connect with the ZBS debugger server.
 local logger = LrLogger( 'Tags2Flags' )
 logger:enable( "print" ) -- or "logfile
