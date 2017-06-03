@@ -6,15 +6,15 @@ local LrLogger = import 'LrLogger' -- Import functions for logging and debugging
 -- local LrMobdebug = import 'LrMobdebug' -- Import LR/ZeroBrane debug module
 --LrMobdebug.start()          
 
--- ToDo : Settings Page
--- ToDo : Store settings
--- ToDo : Add Progress
--- X ToDo : Add Optional Debugging
--- ToDo : Add to GitHub
--- ToDo : Add specific UnDo Notation
--- X ToDo : Add Deprecated Calls check
+-- [X] ToDo : Settings Page
+-- [X] ToDo : Store settings
+-- [ ] ToDo : Add Progress
+-- [X] ToDo : Add Optional Debugging
+-- [X] ToDo : Add to GitHub
+-- [ ] ToDo : Add specific UnDo Notation
+-- [X] ToDo : Add Deprecated Calls check
 -- [X] ToDo : Available only when PhotosSelected
--- [] ToDo : Add Clear Settings Button
+-- [X] ToDo : Add Clear Settings Button
 -- Connect with the ZBS debugger server.
 local logger = LrLogger( 'Tags2Flags' )
 logger:enable( "print" ) -- or "logfile
