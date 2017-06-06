@@ -2,7 +2,7 @@
 ## Lightroom Plug-in: Convert Tags to Flags
 A simple plug-in to convert Colors or Stars to Lightroom Flags. I wrote this plug-in to solve a very simple problem I had incorporating Photo Mechanic into my workflow. In lightroom I use flags and Photo Mechanic only offers Rating or Color. This plug-in solves the problem by converting the selected option of colors or rating (stars) into flags: flagged, unflagged, or rejected. 
 
-I have only tested it with [Adobe PhotoShop Lightroom](http://www.adobe.com/products/photoshop-lightroom.html) CC 1015.10 (6.10.1.10) on Windows 10. You do not need [Photo Mechanic](http://www.camerabits.com/) 5.0 to make it work. Any external editor that supports color or rating will do provided, once imported into Lightroom, the rating and/or color labels show up.
+I have only tested it with [Adobe PhotoShop Lightroom](http://www.adobe.com/products/photoshop-lightroom.html) CC 1015.10.1 (6.10.1.10) on Windows 10. You do not need [Photo Mechanic](http://www.camerabits.com/) 5.0 to make it work. Any external editor that supports color or rating will do provided, once imported into Lightroom, the rating and/or color labels show up.
 
 ### Installation
 1. Download the folder tags2flags.lrdevplugin and all files contained within.
