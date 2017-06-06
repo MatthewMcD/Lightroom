@@ -40,6 +40,7 @@ local LrLogger = import 'LrLogger' -- Import functions for logging and debugging
 
 -- [ ] ToDo : Add Progress
 -- [ ] ToDo : Add specific UnDo Notation
+-- [ ] ToDo : Add option to "Reset Rating" or "Change Color" after conversion. (With option to ask.)
 
 -- Connect with the ZBS debugger server.
 local logger = LrLogger( 'Tags2Flags' )
