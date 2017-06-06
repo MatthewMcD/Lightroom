@@ -1,3 +1,35 @@
+--[[----------------------------------------------------------------------------
+
+MIT License
+
+Copyright (c) 2017 Matthew McDermott
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+
+Colors2Flags.lua
+Code logic for the actual worker performing the set/unset flags based on the UseColors setting. 
+
+Based on the settings chosen by the user, flags are set on every selected photo converting stars and colors to Flags like Picks, Possibles and Rejects.
+
+------------------------------------------------------------------------------]]
 local LrApplication = import 'LrApplication'   -- Import LR namespace which provides access to active catalog
 local LrDialogs = import 'LrDialogs'   -- Import LR namespace for user dialog functions
 local LrTasks = import 'LrTasks'       -- Import functions for starting async tasks
@@ -6,16 +38,9 @@ local LrLogger = import 'LrLogger' -- Import functions for logging and debugging
 -- local LrMobdebug = import 'LrMobdebug' -- Import LR/ZeroBrane debug module
 --LrMobdebug.start()          
 
--- [X] ToDo : Settings Page
--- [X] ToDo : Store settings
 -- [ ] ToDo : Add Progress
--- [X] ToDo : Add Optional Debugging
--- [X] ToDo : Add to GitHub
 -- [ ] ToDo : Add specific UnDo Notation
--- [X] ToDo : Add Deprecated Calls check
--- [X] ToDo : Available only when PhotosSelected
--- [X] ToDo : Add Clear Settings Button
--- [ ] ToDo : Disable/Enable and resolve settings
+
 -- Connect with the ZBS debugger server.
 local logger = LrLogger( 'Tags2Flags' )
 logger:enable( "print" ) -- or "logfile
