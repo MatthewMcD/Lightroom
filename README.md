@@ -15,4 +15,6 @@ I have only tested it with [Adobe PhotoShop Lightroom](http://www.adobe.com/prod
 1. Select the images you wish to "convert".
 2. While in the Library module, launch the plug-in: **Library | Plug-in Extras | Convert Colors to Flags**. On Windows you can use [ALT][L][U][L]. The colors or labels will be converted without confirmation. The changes are sent to the undo history in the event you need to roll them back.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UtW6FXZ_GEU" frameborder="0" allowfullscreen></iframe>
+
 <!--More MD @ https://github.com/primer/markdown/blob/master/README.md -->
