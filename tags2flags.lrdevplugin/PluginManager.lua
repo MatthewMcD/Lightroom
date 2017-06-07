@@ -53,12 +53,14 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
     local prefs = LrPrefs.prefsForPlugin();
     logger:trace( "Prefs Loaded: UseColor : " .. tostring(prefs.UseColor) )
     properties.UseColor = prefs.UseColor;
-    properties.ColorPick = prefs.ColorPick or "red";
-    properties.ColorPossible = prefs.ColorPossible or "blue";
-    properties.ColorReject = prefs.ColorReject or "green";
+    properties.ColorPick = prefs.ColorPick or "purple";
+    properties.ColorPossible = prefs.ColorPossible or "green";
+    properties.ColorReject = prefs.ColorReject or "red";
     properties.RatingPick = prefs.RatingPick or 5;
     properties.RatingPossible = prefs.RatingPossible or 3;
     properties.RatingReject = prefs.RatingReject or 1;
+    properties.ResetRating = prefs.ResetRating;
+    properties.ResetColor = prefs.ResetColor;
 
     return {
         -- section for the top of the dialog
@@ -102,10 +104,6 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     value = bind 'ColorPick',
                     checked_value = 'purple',
                     },
-                    f:static_text {
-                    fill_horizontal = 1,
-                    title = bind 'ColorPick',
-                    },
                 },
                 f:group_box{ 
                     title = "Possible Color",
@@ -135,10 +133,6 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     value = bind 'ColorPossible',
                     checked_value = 'purple',
                     },
-                    f:static_text {
-                    fill_horizontal = 1,
-                    title = bind 'ColorPossible',
-                    },
                 },
                 f:group_box{ 
                     title = "Reject Color",
@@ -167,10 +161,6 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     title = "Purple",
                     value = bind 'ColorReject',
                     checked_value = 'purple',
-                    },
-                    f:static_text {
-                    fill_horizontal = 1,
-                    title = bind 'ColorReject',
                     },
                 },
             },
@@ -211,10 +201,6 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     value = bind 'RatingPick',
                     checked_value = 1,
                     },
-                    f:static_text {
-                    fill_horizontal = 1,
-                    title = bind 'RatingPick',
-                    },
                 },
                 f:group_box{ 
                     title = "Possible Rating",
@@ -243,10 +229,6 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     title = "1",
                     value = bind 'RatingPossible',
                     checked_value = 1,
-                    },
-                    f:static_text {
-                    fill_horizontal = 1,
-                    title = bind 'RatingPossible',
                     },
                 },
                 f:group_box{ 
@@ -278,9 +260,21 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     value = bind 'RatingReject',
                     checked_value = 1,
                     },
-                    f:static_text {
-                    fill_horizontal = 1,
-                    title = bind 'RatingReject',
+                },
+            },
+            f:row{
+                f:group_box{ 
+                    title = "Reset Tags",
+                    --width = 100,
+                    --enabled = bind 'UseColor',
+                    spacing = f:control_spacing(),
+                    f:checkbox {
+                        title = "Reset Color",
+                        value = bind "ResetColor",
+                    },
+                    f:checkbox {
+                        title = "Reset Rating",
+                        value = bind "ResetRating",
                     },
                 },
             },
@@ -292,12 +286,14 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     action = function()
                         -- Save Prefs Here
                         properties.UseColor = true;
-                        properties.ColorPick = "red";
-                        properties.ColorPossible = "yellow";
-                        properties.ColorReject = "green";
+                        properties.ColorPick = "purple";
+                        properties.ColorPossible = "green";
+                        properties.ColorReject = "red";
                         properties.RatingPick = 5;
                         properties.RatingPossible = 3;
                         properties.RatingReject = 1;
+                        properties.ResetRating = false
+                        properties.ResetColor = false
                     end,
                 },
             },
@@ -321,5 +317,10 @@ function PluginManager.endDialog(properties)
     logger:trace( "Prefs Saved: UseColor : " .. tostring(properties.RatingPossible) )
     prefs.RatingReject = properties.RatingReject;
     logger:trace( "Prefs Saved: UseColor : " .. tostring(properties.RatingReject) )
+    prefs.ResetColor = properties.ResetColor;
+    logger:trace( "Prefs Saved: ResetColor : " .. tostring(properties.ResetColor) )
+    prefs.ResetRating = properties.ResetRating;
+    logger:trace( "Prefs Saved: ResetRating : " .. tostring(properties.ResetRating) )
+
 
 end

@@ -47,12 +47,12 @@ return {
 	LrLibraryMenuItems = {
 	    {
 		    title = LOC "$$$/Tags2Flags/FileMenuItem=Convert Tags to F&lags",
-		    file = "Colors2Flags.lua",
+		    file = "Tags2Flags.lua",
 			enabledWhen = "photosSelected",
 		},
 	
 	},
-	VERSION = { major=0, minor=5, revision=0, build=0, },
+	VERSION = { major=0, minor=6, revision=0, build=0, },
 	LrPluginInfoUrl = 'http://www.github.com/MatthewMcD/Lightroom',
 	LrPluginInfoProvider = 'PluginInfoProvider.lua',
 }

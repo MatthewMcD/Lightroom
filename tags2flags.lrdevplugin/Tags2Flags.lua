@@ -39,8 +39,9 @@ local LrLogger = import 'LrLogger' -- Import functions for logging and debugging
 --LrMobdebug.start()          
 
 -- [ ] ToDo : Add Progress
--- [ ] ToDo : Add specific UnDo Notation
--- [ ] ToDo : Add option to "Reset Rating" or "Change Color" after conversion. (With option to ask.)
+-- [X] ToDo : Add specific UnDo Notation
+-- [X] ToDo : Add option to "Reset Rating" or "Change Color" after conversion. 
+-- [ ] ToDo : Convert to procedures for easier reading
 
 -- Connect with the ZBS debugger server.
 local logger = LrLogger( 'Tags2Flags' )
@@ -70,8 +71,9 @@ LrTasks.startAsyncTask (function()          -- Certain functions in LR which acc
             	
 		-- LrDialogs.message ("Color: " .. color .. " Flag " .. flag .. " Rating:" .. rating .. ".")
 		outputToLog("Color=[" .. color .. "] Flag=[" .. flag .. "] Rating=[" .. rating .. "]")
-		catalog:withWriteAccessDo("Convert Color to Flag", function( context ) 
-			if prefs.UseColor then
+		
+		if prefs.UseColor then
+			catalog:withWriteAccessDo("Convert Color to Flag", function( context ) 
 				outputToLog("Using Color")
 				if color == prefs.ColorPick then
 				--set 
@@ -89,7 +91,13 @@ LrTasks.startAsyncTask (function()          -- Certain functions in LR which acc
 					outputToLog( "Before changing [" .. color .. "] to Reject" )
 					photo:setRawMetadata("pickStatus",-1)
 				end
-			else -- Use rating
+				if prefs.ResetColor then
+					outputToLog("Resetting Color")
+					photo:setRawMetadata("colorNameForLabel","none")
+				end
+			end )
+		else -- Use rating
+			catalog:withWriteAccessDo("Convert Rating to Flag", function( context ) 
 				outputToLog("Using Rating")
 				if rating == prefs.RatingPick then
 				--set 
@@ -104,8 +112,12 @@ LrTasks.startAsyncTask (function()          -- Certain functions in LR which acc
 					--LrDialogs.message ("Rating: Reject")
 					photo:setRawMetadata("pickStatus",-1)
 				end
-			end
-		end )
+				if prefs.ResetRating then
+					outputToLog("Zero rating")
+					photo:setRawMetadata("rating",nil)
+				end
+			end )
+		end
      end
   end
 
