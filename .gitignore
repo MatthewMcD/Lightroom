@@ -301,3 +301,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Force include the /bin/ directory for the ExifTool Example
+!/helloexiftool.lrdevplugin/bin**
