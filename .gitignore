@@ -304,3 +304,4 @@ $RECYCLE.BIN/
 
 # Force include the /bin/ directory for the ExifTool Example
 !/helloexiftool.lrdevplugin/bin**
+!/fujistars.lrdevplugin/bin**
