@@ -21,6 +21,8 @@ local LrStringUtils = import "LrStringUtils"
 local LrSystemInfo = import "LrSystemInfo"
 local LrUUID = import "LrUUID"
 
+require "Utils"
+
 ExifUtils = {}
 exiftool = LrPathUtils.child( _PLUGIN.path, "bin" )
 exiftool = LrPathUtils.child(exiftool, "exiftool")

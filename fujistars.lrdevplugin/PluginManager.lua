@@ -2,7 +2,7 @@
 
 MIT License
 
-Copyright (c) 2017 Matthew McDermott
+Copyright (c) 2018 Matthew McDermott
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,7 @@ This module is called by PluginInfoProvider.lua. Creating the UI for the Plugin 
 [ ] ToDo : Check the Settings for exclusivity.
 [ ] ToDo : Add a toggle for debugging
 [ ] ToDo : Disable/Enable Controls
+[ ] ToDo : Option for "Make Pick"
 
 ------------------------------------------------------------------------------]]
 local LrView = import "LrView"
@@ -54,14 +55,8 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
     logger:trace( "Prefs Loaded: UseColor : " .. tostring(prefs.UseColor) )
     properties.UseColor = prefs.UseColor;
     properties.ColorPick = prefs.ColorPick or "purple";
-    properties.ColorPossible = prefs.ColorPossible or "green";
-    properties.ColorReject = prefs.ColorReject or "red";
     properties.RatingPick = prefs.RatingPick or 5;
-    properties.RatingPossible = prefs.RatingPossible or 3;
-    properties.RatingReject = prefs.RatingReject or 1;
-    properties.ResetRating = prefs.ResetRating;
-    properties.ResetColor = prefs.ResetColor;
-
+    
     return {
         -- section for the top of the dialog
         {
@@ -105,64 +100,6 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     checked_value = 'purple',
                     },
                 },
-                f:group_box{ 
-                    title = "Possible Color",
-                    width = 100,
-                    f:radio_button {
-                    title = "Red",
-                    value = bind 'ColorPossible', -- all of the buttons bound to the same key
-                    checked_value = 'red',
-                    },
-                    f:radio_button {
-                    title = "Yellow",
-                    value = bind 'ColorPossible',
-                    checked_value = 'yellow',
-                    },
-                    f:radio_button {
-                    title = "Green",
-                    value = bind 'ColorPossible',
-                    checked_value = 'green',
-                    },
-                    f:radio_button {
-                    title = "Blue",
-                    value = bind 'ColorPossible',
-                    checked_value = 'blue',
-                    },
-                    f:radio_button {
-                    title = "Purple",
-                    value = bind 'ColorPossible',
-                    checked_value = 'purple',
-                    },
-                },
-                f:group_box{ 
-                    title = "Reject Color",
-                    width = 100,
-                    f:radio_button {
-                    title = "Red",
-                    value = bind 'ColorReject', -- all of the buttons bound to the same key
-                    checked_value = 'red',
-                    },
-                    f:radio_button {
-                    title = "Yellow",
-                    value = bind 'ColorReject',
-                    checked_value = 'yellow',
-                    },
-                    f:radio_button {
-                    title = "Green",
-                    value = bind 'ColorReject',
-                    checked_value = 'green',
-                    },
-                    f:radio_button {
-                    title = "Blue",
-                    value = bind 'ColorReject',
-                    checked_value = 'blue',
-                    },
-                    f:radio_button {
-                    title = "Purple",
-                    value = bind 'ColorReject',
-                    checked_value = 'purple',
-                    },
-                },
             },
             f:row{
                 spacing = f:control_spacing(),
@@ -202,81 +139,6 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     checked_value = 1,
                     },
                 },
-                f:group_box{ 
-                    title = "Possible Rating",
-                    width = 100,
-                    f:radio_button {
-                    title = "5",
-                    value = bind 'RatingPossible', -- all of the buttons bound to the same key
-                    checked_value = 5,
-                    },
-                    f:radio_button {
-                    title = "4",
-                    value = bind 'RatingPossible',
-                    checked_value = 4,
-                    },
-                    f:radio_button {
-                    title = "3",
-                    value = bind 'RatingPossible',
-                    checked_value = 3,
-                    },
-                    f:radio_button {
-                    title = "2",
-                    value = bind 'RatingPossible',
-                    checked_value = 2,
-                    },
-                    f:radio_button {
-                    title = "1",
-                    value = bind 'RatingPossible',
-                    checked_value = 1,
-                    },
-                },
-                f:group_box{ 
-                    title = "Reject Rating",
-                    width = 100,
-                    enabled = bind 'UseColor',
-                    f:radio_button {
-                    title = "5",
-                    value = bind 'RatingReject', -- all of the buttons bound to the same key
-                    checked_value = 5,
-                    },
-                    f:radio_button {
-                    title = "4",
-                    value = bind 'RatingReject',
-                    checked_value = 4,
-                    },
-                    f:radio_button {
-                    title = "3",
-                    value = bind 'RatingReject',
-                    checked_value = 3,
-                    },
-                    f:radio_button {
-                    title = "2",
-                    value = bind 'RatingReject',
-                    checked_value = 2,
-                    },
-                    f:radio_button {
-                    title = "1",
-                    value = bind 'RatingReject',
-                    checked_value = 1,
-                    },
-                },
-            },
-            f:row{
-                f:group_box{ 
-                    title = "Reset Tags",
-                    --width = 100,
-                    --enabled = bind 'UseColor',
-                    spacing = f:control_spacing(),
-                    f:checkbox {
-                        title = "Reset Color",
-                        value = bind "ResetColor",
-                    },
-                    f:checkbox {
-                        title = "Reset Rating",
-                        value = bind "ResetRating",
-                    },
-                },
             },
             f:row {
                 f:push_button {
@@ -285,15 +147,9 @@ function PluginManager.sectionsForTopOfDialog( viewFactory, properties )
                     enabled = true,
                     action = function()
                         -- Save Prefs Here
-                        properties.UseColor = true;
+                        properties.UseColor = false;
                         properties.ColorPick = "purple";
-                        properties.ColorPossible = "green";
-                        properties.ColorReject = "red";
-                        properties.RatingPick = 5;
-                        properties.RatingPossible = 3;
-                        properties.RatingReject = 1;
-                        properties.ResetRating = false
-                        properties.ResetColor = false
+                        properties.RatingPick = 5
                     end,
                 },
             },
@@ -307,20 +163,8 @@ function PluginManager.endDialog(properties)
     logger:trace( "Prefs Saved: UseColor : " .. tostring(properties.UseColor) )
     prefs.ColorPick = properties.ColorPick;
     logger:trace( "Prefs Saved: UseColor : " .. tostring(properties.ColorPick) )
-    prefs.ColorPossible = properties.ColorPossible;
-    logger:trace( "Prefs Saved: UseColor : " .. tostring(properties.ColorPossible) )
-    prefs.ColorReject = properties.ColorReject;
-    logger:trace( "Prefs Saved: UseColor : " .. tostring(properties.ColorReject) )
     prefs.RatingPick = properties.RatingPick;
     logger:trace( "Prefs Saved: UseColor : " .. tostring(properties.RatingPick) )
-    prefs.RatingPossible = properties.RatingPossible;
-    logger:trace( "Prefs Saved: UseColor : " .. tostring(properties.RatingPossible) )
-    prefs.RatingReject = properties.RatingReject;
-    logger:trace( "Prefs Saved: UseColor : " .. tostring(properties.RatingReject) )
-    prefs.ResetColor = properties.ResetColor;
-    logger:trace( "Prefs Saved: ResetColor : " .. tostring(properties.ResetColor) )
-    prefs.ResetRating = properties.ResetRating;
-    logger:trace( "Prefs Saved: ResetRating : " .. tostring(properties.ResetRating) )
-
+    
 
 end

@@ -38,7 +38,7 @@ return {
 
 	LrToolkitIdentifier = 'com.ableblue.lightroom.fujistars',
 
-	LrPluginName = LOC "$$$/fujistars/PluginName=Convert Fujifilm RAF star rating to proper EXIF Rating",
+	LrPluginName = LOC "$$$/fujistars/PluginName=Fujifilm RAF star rating to proper EXIF Rating",
 	
 	LrInitPlugin = 'PluginInit.lua',
 

@@ -35,6 +35,9 @@ local LrDialogs = import 'LrDialogs'   -- Import LR namespace for user dialog fu
 local LrTasks = import 'LrTasks'       -- Import functions for starting async tasks
 local LrPrefs = import 'LrPrefs' -- Preferences manager
 local LrLogger = import 'LrLogger' -- Import functions for logging and debugging
+
+require "ExifUtils"
+
 --Debug
 local LrMobdebug = import 'LrMobdebug' -- Import LR/ZeroBrane debug module
 LrMobdebug.start()          
@@ -54,30 +57,46 @@ LrTasks.startAsyncTask (function()          -- Certain functions in LR which acc
   LrMobdebug.on()                           -- Make this coroutine known to ZBS
    
   catalog = LrApplication.activeCatalog()   -- Get the active LR catalog. 
-  
+  --ToDo : Move this to Settings
+  local propertyNameSideCar = "sidecarfile"
+  local propertyNameRating = "makernotes:rating"
+
   local color = ""
   local flag = 0
   local rating = 0
   local fujirating = 0
-  local fujirating2 = 0
+  local sidecarFileName = ""
   
   --Get all selected photos
   --loop thru them and check color label
   if catalog.targetPhoto then
-	for ind, photo in ipairs(catalog.targetPhotos) do
-		color = photo:getRawMetadata("colorNameForLabel") -- "red", "yellow", "green", "blue", "purple", "other", or "none"
-        flag = photo:getRawMetadata("pickStatus") -- -1 = reject, 0 = none, 1 = pick
-        rating = photo:getRawMetadata("rating") -- 0-5
-        fujirating = photo:getRawMetadata("MakerNote") -- ??
-        fujirating2 = photo:getFormattedMetadata("MakerNote") -- ?? 
-		if rating == nil then
-			rating = 0
-		end
-            	
+    for ind, photo in ipairs(catalog.targetPhotos) do
+      --Evaluate the current Photo values
+      color = photo:getRawMetadata("colorNameForLabel") -- "red", "yellow", "green", "blue", "purple", "other", or "none"
+      flag = photo:getRawMetadata("pickStatus") -- -1 = reject, 0 = none, 1 = pick
+      rating = photo:getRawMetadata("rating") -- 0-5
+      if rating == nil then
+        rating = 0
+      end
+      
+		LrMobdebug.on()
+		--Rolling just get the stars from the sister file and show
+	--Get the sidecar jpg file
+  --sidecarFileName = photo:getPropertyForPlugin( 'com.adobe.sidecars', propertyNameSideCar) -- *.jpg (and possibly the *.exif)
+    sidecarFileName = photo:getFormattedMetadata() -- *.jpg (and possibly the *.exif)
+    
+    local metadata = ExifUtils.readMetaDataAsTable(photo)
+    --local propertyVal = ExifUtils.findFirstMatchingValue(metadata, {propertyNameSideCar})
+    
+    local propertyVal = ExifUtils.findFirstMatchingValue(metadata, {propertyNameRating})
+    LrDialogs.message(propertyVal)
+  
 		LrDialogs.message ("Color: " .. color .. " Flag " .. flag .. " Rating:" .. rating .. ".")
-    LrDialogs.message ("MakerNote: " .. fujirating)
+    	--LrDialogs.message ("MakerNote: " .. fujirating)
 		outputToLog("Color=[" .. color .. "] Flag=[" .. flag .. "] Rating=[" .. rating .. "]")
+
 		
+		--Set Values
 		-- Use rating
 			--catalog:withWriteAccessDo("Convert Rating to Flag", function( context ) 
 				--outputToLog("Using Rating")
